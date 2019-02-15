@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IUserVTO } from 'src/app/models/user.models';
+import * as customValidators from '../../helpers/validators';
 
 @Component({
   selector: 'app-signup',
@@ -23,7 +24,7 @@ export class SignupComponent implements OnInit {
     this.signupForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.email, Validators.required]],
-      password: ['', Validators.required]
+      password: ['', [customValidators.integerValidator, Validators.required]]
     });
   }
 
@@ -35,5 +36,25 @@ export class SignupComponent implements OnInit {
       },
       err => console.log(err)
     );
+  }
+
+  displayError(value: string) {
+    const formControl = this.signupForm.controls[value];
+    const errors = formControl.errors;
+    let message = '';
+    if (errors) {
+      if (errors.required && formControl.touched) {
+        message = 'This field is required';
+      } else if (errors.email) {
+        message = 'Use proper email format';
+      } else if (errors.invalidNumber) {
+        message = 'Use only numbers';
+      }
+    }
+    return message;
+  }
+
+  submitDisabled() {
+    return !this.signupForm.valid;
   }
 }
