@@ -2,35 +2,39 @@
   <div class="row">
     <div class="col s10 offset-s1">
       <h3>Sign Up</h3>
-      <form class="col s12">
+
+      <form class="col s12"
+        [formGroup]="signupForm"
+        (ngSubmit)="signup()"
+        novalidate>
         <div class="row">
           <div class="input-field col s12">
-            <input id="user_name"
+            <input formControlName="name"
               type="text">
-            <label for="user_name">User Name</label>
+            <label>User Name</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="email"
+            <input formControlName="email"
               type="email">
-            <label for="email">Email</label>
+            <label>Email</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="password"
+            <input formControlName="password"
               type="password">
-            <label for="password">Password</label>
+            <label>Password</label>
           </div>
         </div>
 
-        <button class="btn waves-effect waves-light"
+        <button class="btn"
           type="submit"
           name="action">Submit
-          <i class="material-icons right">send</i>
         </button>
       </form>
+
     </div>
   </div>
 </div>
