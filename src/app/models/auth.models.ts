@@ -1,11 +1,10 @@
-export interface IUserDTO {
+export interface ISignup {
   userId: string;
   name: string;
   email: string;
 }
 
-export interface IUserVTO {
-  name: string;
+export interface ILogin {
   email: string;
   password: string;
 }

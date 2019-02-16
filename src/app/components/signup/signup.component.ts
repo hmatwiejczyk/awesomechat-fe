@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { IUserVTO } from 'src/app/models/user.models';
+import { ISignup } from 'src/app/models/auth.models';
 import * as customValidators from '../../helpers/validators';
 import { Router } from '@angular/router';
 
@@ -35,7 +35,7 @@ export class SignupComponent implements OnInit {
 
   signup() {
     this.showSpinner = true;
-    const body: IUserVTO = this.signupForm.value;
+    const body: ISignup = this.signupForm.value;
     this.authService.signupUser(body).subscribe(
        data => {
         this.signupForm.reset();

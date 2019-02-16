@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { IUserVTO } from 'src/app/models/user.models';
+import { ILogin } from 'src/app/models/auth.models';
 import * as customValidators from '../../helpers/validators';
 import { Router } from '@angular/router';
 
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    const body: IUserVTO = this.loginForm.value;
+    const body: ILogin = this.loginForm.value;
     this.authService.loginUser(body).subscribe(
        data => {
         this.loginForm.reset();
