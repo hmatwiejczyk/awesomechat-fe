@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IUserVTO } from 'src/app/models/user.models';
 import * as customValidators from '../../helpers/validators';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -13,9 +14,11 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
   errorBE: object;
+  showSpinner: boolean;
   constructor(
     private authService: AuthService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -32,12 +35,16 @@ export class SignupComponent implements OnInit {
   }
 
   signup() {
+    this.showSpinner = true;
     const body: IUserVTO = this.signupForm.value;
     this.authService.signupUser(body).subscribe(
-      data => {
+       data => {
         this.signupForm.reset();
+        this.showSpinner = false;
+       this.router.navigate(['streams']);
       },
       err => {
+        this.showSpinner = false;
         this.errorBE = err.error;
       }
     );
