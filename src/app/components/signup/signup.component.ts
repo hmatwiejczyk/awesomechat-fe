@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IUserVTO } from 'src/app/models/user.models';
 import * as customValidators from '../../helpers/validators';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
@@ -11,6 +12,7 @@ import * as customValidators from '../../helpers/validators';
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
+  errorBE: object;
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder
@@ -24,7 +26,8 @@ export class SignupComponent implements OnInit {
     this.signupForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.email, Validators.required]],
-      password: ['', [customValidators.integerValidator, Validators.required]]
+      password: ['', [customValidators.integerValidator, Validators.required]],
+      password2: ['', [customValidators.integerValidator, Validators.required]]
     });
   }
 
@@ -34,15 +37,25 @@ export class SignupComponent implements OnInit {
       data => {
         this.signupForm.reset();
       },
-      err => console.log(err)
+      err => {
+        this.errorBE = err.error;
+      }
     );
   }
 
-  displayError(value: string) {
+  displayError(value: string): string {
     const formControl = this.signupForm.controls[value];
-    const errors = formControl.errors;
     let message = '';
+    if (this.errorBE) {
+      Object.keys(this.errorBE).map(k => {
+        if (k === value) {
+          message = this.errorBE[k];
+        }
+      });
+    }
+    const errors = formControl.errors;
     if (errors) {
+      this.errorBE = {};
       if (errors.required && formControl.touched) {
         message = 'This field is required';
       } else if (errors.email) {
