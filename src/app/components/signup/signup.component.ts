@@ -3,7 +3,6 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IUserVTO } from 'src/app/models/user.models';
 import * as customValidators from '../../helpers/validators';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -41,7 +40,7 @@ export class SignupComponent implements OnInit {
        data => {
         this.signupForm.reset();
         this.showSpinner = false;
-       this.router.navigate(['streams']);
+       this.router.navigate(['login']);
       },
       err => {
         this.showSpinner = false;

@@ -15,4 +15,7 @@ export class AuthService {
   signupUser(body: IUserVTO): Observable<any> {
     return this.http.post(`${BASE_URL}/signup`, body);
   }
+  loginUser(body: IUserVTO): Observable<any> {
+    return this.http.post(`${BASE_URL}/login`, body);
+  }
 }
