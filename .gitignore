@@ -7,6 +7,7 @@
 
 # dependencies
 /node_modules
+/assets/scss
 
 # profiling files
 chrome-profiler-events.json
