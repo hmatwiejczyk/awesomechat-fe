@@ -27,7 +27,7 @@
               "src/assets/scss/bootstrap.scss",
               "src/styles.scss"
             ],
-            "scripts": ["./node_modules/materialize-css/dist/js/materialize.js"]
+            "scripts": []
           },
           "configurations": {
             "production": {
